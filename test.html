@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <style>
+            .tree span:hover {
+                font-weight: bold;
+            }
+
+            .tree span {
+                cursor: pointer;
+            }
+        </style> -->
+        <link rel="stylesheet" href="./styles/index.css" />
+        <link rel="stylesheet" href="./libs/styles/an-old-hope.min.css" />
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <pre><code>
+            const path = require("path");
+            const fs = require("fs");
+            
+            /**
+             * @function создает дерево каталогов
+             * @name makeTree
+             * @param {array} root массив названий каталогов
+             * @param {string} rootPath путь к корневому каталогу
+             * @returns {object} возращает дерево каталогов
+             */
+            
+            function makeTree(root, rootPath) {
+                /**
+                 * @type {{name: string, selfPath: string, children:(string|object)[]}}
+                 */
+                const CatalogTree = {
+                    name: "uploads",
+                    selfPath: path.resolve(rootPath),
+                    children: root,
+                };
+            
+                recursive(CatalogTree);
+            
+                /**
+                 * @function рекурсивно обходит каталоги и строит "дерево" мутируя объект CatalogTree
+                 * @name recursive
+                 * @param {string} selfPath путь к текущему каталогу
+                 * @param {array} children массив названий элементов внутри каталога
+                 */
+            
+                function recursive({ selfPath, children }) {
+                    for (let i = 0; i < children.length; i++) {
+                        let elem = children[i];
+                        let pathStat = path.resolve(selfPath + "/" + elem);
+            
+                        if (
+                            fs.existsSync(pathStat) &&
+                            fs.lstatSync(pathStat).isDirectory()
+                        ) {
+                            children.splice(i, 1, {
+                                name: elem,
+                                selfPath: pathStat,
+                                children: [],
+                            });
+            
+                            children[i].children = fs.readdirSync(
+                                path.resolve(selfPath + "/" + elem)
+                            );
+            
+                            recursive(children[i]);
+                        }
+                        if (
+                            !fs.existsSync(pathStat) &&
+                            fs.lstatSync(pathStat).isDirectory()
+                        ) {
+                            children.push(elem);
+                        }
+                    }
+                }
+                return CatalogTree;
+            }
+            
+            module.exports = makeTree;
+            </code></pre>
+        <script src="./libs/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

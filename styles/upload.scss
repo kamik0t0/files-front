@@ -1,0 +1,21 @@
+.input__wrapper {
+    .input__file {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .input__file-button {
+        min-width: 92px;
+        border-radius: 3px;
+        height: 28px;
+        background: #efefef;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 1px solid #767676;
+        font-size: 0.9rem;
+    }
+}
