@@ -1,24 +1,21 @@
-export function higlightSelected(tree) {
-    tree.addEventListener("click", (event) => {
-        if (event.target.tagName !== "SPAN") return;
-
-        if (event.ctrlKey || event.metaKey) {
-            toggleSelect(event.target);
-        } else {
-            singleSelect(event.target, tree);
-        }
-    });
+export function highlightFile(elem) {
+    if (elem.tagName !== "SPAN") return;
+    const tree = document.getElementById("tree").firstElementChild;
+    singleSelect(elem, tree, "selected");
     tree.addEventListener("mousedown", () => false);
 }
 
-function toggleSelect(span) {
-    span.classList.toggle("selected");
+export function highlightTab(elem) {
+    if (elem.className !== "tab") return;
+    const tabs = document.getElementById("tabs");
+    singleSelect(elem, tabs, "selected-tab");
+    tabs.addEventListener("mousedown", () => false);
 }
 
-function singleSelect(span, tree) {
-    let selected = tree.querySelectorAll(".selected");
+function singleSelect(elem, tree, selector) {
+    let selected = tree.querySelectorAll("." + selector);
     for (let elem of selected) {
-        elem.classList.remove("selected");
+        elem.classList.remove(selector);
     }
-    span.classList.add("selected");
+    elem.classList.add(selector);
 }

@@ -3,7 +3,6 @@ export async function loadCatalogTree() {
         const response = await fetch(process.env.URL_TREE);
         if (response.ok) {
             const Tree = await response.json();
-            console.log(Tree);
             return Tree;
         } else {
             const error = await response.json();

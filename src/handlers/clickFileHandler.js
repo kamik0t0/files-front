@@ -2,9 +2,10 @@ import { readFile } from "../requests/readFile.js";
 import { pathsHandler } from "../scripts/pathsHandler";
 import { showFile } from "../view/showFile.js";
 import { createTab } from "../view/createTab.js";
-import { sessionStorageClear } from "../scripts/sessionStorageClear.js";
 import { openedFiles } from "../utils/openFilesArray.js";
+import { openedTabs } from "../utils/openFilesArray.js";
 import { File } from "../utils/fileClass.js";
+import { highlightTab } from "../view/highlight.js";
 
 export async function clickFileHandler(event) {
     if (
@@ -13,14 +14,18 @@ export async function clickFileHandler(event) {
     )
         return false;
     if (event.target.nextElementSibling === null) {
-        sessionStorageClear();
-        pathsHandler(event);
+        sessionStorage.clear();
+        pathsHandler(event); // переписать на 2 функции filePathhandler и folderPathHandler
         const filePath = sessionStorage.getItem("filePath");
         const file = sessionStorage.getItem("file");
+        const folderPath = sessionStorage.getItem("folderPath");
+        const folder = sessionStorage.getItem("folder");
 
-        for (const file of openedFiles) {
+        for (let i = 0; i < openedFiles.length; i++) {
+            let file = openedFiles[i];
             if (file.filePath === filePath) {
                 showFile(file.content);
+                highlightTab(openedTabs[i].tab);
                 return;
             }
         }
@@ -30,10 +35,11 @@ export async function clickFileHandler(event) {
             process.env.URL_FILE_READ
         );
 
-        openedFiles.push(new File(filePath, file, content));
+        openedFiles.push(
+            new File(filePath, file, folderPath, folder, event.target, content)
+        );
 
-        sessionStorage.setItem(filePath, content);
         showFile(content);
-        createTab(file);
+        createTab(file, filePath);
     }
 }

@@ -42,6 +42,9 @@ body {
                 .file {
                     list-style-image: url("../assets/file_106358.svg");
                 }
+                span {
+                    display: block;
+                }
             }
 
             .info {
@@ -53,7 +56,6 @@ body {
                 overflow: auto;
 
                 .tabs {
-                    // position: relative;
                     display: flex;
                     flex-direction: row;
                     align-items: flex-end;
@@ -97,6 +99,11 @@ body {
 
 .selected {
     background: #728ca9;
+}
+
+.selected-tab {
+    border-bottom: none;
+    background-color: #818c9a;
 }
 
 span {

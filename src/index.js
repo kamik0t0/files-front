@@ -9,10 +9,11 @@ import { downloadFileHandler } from "./handlers/downloadFileHandler.js";
 import { renameHandler } from "./handlers/renameHandler.js";
 import { uploadFileHandler } from "./handlers/uploadFileHandler.js";
 import { loadCatalogTree } from "./requests/loadCatalogTree.js";
-import { navigateCatalogTree } from "./scripts/navigateCatalogTree.js";
+import { wrapLisInSpan } from "./scripts/wrapLisInSpan.js";
 import { renderCatalogTree } from "./view/renderCatalogTree.js";
-import { higlightSelected } from "./view/highlight.js";
+import { highlightFile } from "./view/highlight.js";
 import { resetSelection } from "./view/resetSelection.js";
+import { openedFiles } from "./utils/openFilesArray";
 
 const CreateFolderBtn = document.getElementById("create-folder");
 const DeleteFolderBtn = document.getElementById("delete-folder");
@@ -25,8 +26,8 @@ const tree = document.getElementById("tree");
 loadCatalogTree()
     .then((treeObj) => {
         renderCatalogTree(treeObj);
-        navigateCatalogTree(tree);
-        higlightSelected(tree.firstElementChild);
+        wrapLisInSpan(tree);
+        console.log(openedFiles);
     })
     .catch((err) => console.log(err));
 
@@ -37,6 +38,7 @@ DownloadFileBtn.addEventListener("click", downloadFileHandler);
 DeleteFileBtn.addEventListener("click", deleteFileHandler);
 RenameBtn.addEventListener("click", renameHandler);
 
+tree.addEventListener("click", (event) => highlightFile(event.target));
 tree.addEventListener("click", clickFolderHandler);
 tree.addEventListener("click", clickFileHandler);
 tree.addEventListener("click", resetSelection);

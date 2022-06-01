@@ -19,3 +19,19 @@ export function getFileFolder(path) {
 export function getPathToFolder(path) {
     return path.match(/.{1,}\//i)[0];
 }
+
+/**
+ * @function retrives first folder of path
+ * @name getFolder
+ * @param {string} path path to file with fileName
+ * @returns {string} first folder in path (ex.: controllers/file/readFileController.js => controllers)
+ */
+
+export function getFolder(path) {
+    const folder = path.match(/.{1,}?\//);
+    if (folder !== null) {
+        return folder[0].slice(0, folder[0].length - 1);
+    } else {
+        return false;
+    }
+}
