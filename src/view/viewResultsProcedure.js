@@ -15,5 +15,7 @@ export function viewResultsProcedure(serverReqCallback, ...args) {
         .catch((err) => {
             console.log(err);
             alert("Ошибка: " + err.message);
+            return false;
         });
+    return true;
 }

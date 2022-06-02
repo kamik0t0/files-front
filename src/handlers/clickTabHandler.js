@@ -18,6 +18,7 @@ export function clickTabHandler(event) {
 
     for (let i = 0; i < tabsList.length; i++) {
         if (tabsList[i] === currentTab) {
+            sessionStorage.clear();
             const file = openedFiles[i];
             showFile(file.content);
             setFileInfoToStorage(file);

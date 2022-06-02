@@ -39,12 +39,12 @@ export function createNodePath(path, parent) {
 
         for (let i = 0; i < node.length; i++) {
             let elem = node[i];
-
             if (elem.firstElementChild.textContent === currentPath) {
                 path = path.slice(currentPath.length + 1);
 
                 if (path.length !== 0) {
                     recursive(getFolder(path), node[i].children[1].children);
+                    break;
                 } else if (path.length === 0) {
                     domElement = elem.firstElementChild;
                 }

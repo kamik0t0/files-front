@@ -35,3 +35,14 @@ export function getFolder(path) {
         return false;
     }
 }
+/**
+ * @function retrives path to file
+ * @name getFilePath
+ * @param {string} path path to file with fileName
+ * @returns {string} path to file (ex.: controllers/file/readFileController.js => controllers/file)
+ */
+
+export function getFilePath(path) {
+    const folder = path.match(/.{1,}\//);
+    return folder[0].slice(0, folder[0].length - 1);
+}

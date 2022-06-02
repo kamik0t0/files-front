@@ -35,10 +35,8 @@ export async function clickFileHandler(event) {
             process.env.URL_FILE_READ
         );
 
-        openedFiles.push(
-            new File(filePath, file, folderPath, folder, event.target, content)
-        );
-
+        openedFiles.push(new File(filePath, file, folderPath, folder, content));
+        console.log(openedFiles);
         showFile(content);
         createTab(file, filePath);
     }

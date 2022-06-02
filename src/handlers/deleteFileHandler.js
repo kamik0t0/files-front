@@ -10,17 +10,18 @@ export function deleteFileHandler(event) {
     const params = `?fileName=${filePath}`;
     const tabsList = document.getElementById("tabs").children;
 
-    for (let i = 0; i < openedFiles.length; i++) {
-        const element = openedFiles[i];
-        if (element.filePath === filePath) {
-            openedFiles.splice(i, 1);
-            openedTabs.splice(i, 1);
-            tabsList[i].remove();
-        }
-    }
-
     if (filePath) {
         viewResultsProcedure(deleteFile, params);
+
+        for (let i = 0; i < openedFiles.length; i++) {
+            const file = openedFiles[i];
+            if (file.filePath === filePath) {
+                openedFiles.splice(i, 1);
+                openedTabs.splice(i, 1);
+                tabsList[i].remove();
+                break;
+            }
+        }
     } else {
         alert("Выберите файл");
     }
