@@ -7,10 +7,11 @@ export async function uploadFile(file, params) {
 
         if (response.ok) {
             return await response.json();
-        } else {
-            const error = await response.json();
-            throw new Error(error.code);
         }
+        // else {
+        //     const error = await response.json();
+        //     throw new Error(error.code);
+        // }
     } catch (error) {
         throw new Error(error);
     }

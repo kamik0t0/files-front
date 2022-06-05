@@ -5,7 +5,7 @@ import { highlightTab } from "../view/highlight.js";
 import { setFileInfoToStorage } from "../scripts/setFileInfoToStorage.js";
 import { resetSelection } from "../view/resetSelection.js";
 import { openedTabs } from "../utils/openFilesArray.js";
-import { createNodePath } from "../scripts/makeCatalogPath.js";
+import { determDomNodePath } from "../scripts/makeCatalogPath.js";
 
 export function clickCloseTabHandler(event) {
     if (event.target.className !== "closeBtn") return;
@@ -29,7 +29,7 @@ export function clickCloseTabHandler(event) {
             ) {
                 showFile(lastOpenedFile.content);
                 setFileInfoToStorage(lastOpenedFile);
-                const fileDomElem = createNodePath(
+                const fileDomElem = determDomNodePath(
                     lastOpenedFile.filePath,
                     document.getElementById("tree").firstElementChild.children
                 );

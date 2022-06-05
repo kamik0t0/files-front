@@ -46,3 +46,14 @@ export function getFilePath(path) {
     const folder = path.match(/.{1,}\//);
     return folder[0].slice(0, folder[0].length - 1);
 }
+
+/**
+ * @function retrives fileName from path
+ * @name getFileName
+ * @param {string} path path to file with fileName
+ * @returns {string} path to file (ex.: controllers/file/readFileController.js => readFileController.j)
+ */
+
+export function getFileName(path) {
+    return path.match(/[^\/]{1,}\..{1,4}\b/)[0];
+}

@@ -29,7 +29,7 @@ export function createRelativePath(node) {
  * @returns {object} DOM-element
  */
 
-export function createNodePath(path, parent) {
+export function determDomNodePath(path, parent) {
     let domElement;
     recursive(getFolder(path), parent);
     return domElement;
@@ -43,6 +43,11 @@ export function createNodePath(path, parent) {
                 path = path.slice(currentPath.length + 1);
 
                 if (path.length !== 0) {
+                    if (!elem.classList.contains("open-folder")) {
+                        elem.classList.add("open-folder");
+                        elem.lastElementChild.hidden =
+                            !elem.lastElementChild.hidden;
+                    }
                     recursive(getFolder(path), node[i].children[1].children);
                     break;
                 } else if (path.length === 0) {

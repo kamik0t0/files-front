@@ -1,6 +1,6 @@
 import { deleteFolder } from "../requests/deleteFolder.js";
-import { viewResultsProcedure } from "../view/viewResultsProcedure.js";
 import { openedFiles, openedTabs } from "../utils/openFilesArray.js";
+import { determDomNodePath } from "../scripts/makeCatalogPath.js";
 
 export function deleteFolderHandler() {
     const folderPath = sessionStorage.getItem("folderPath");
@@ -8,35 +8,46 @@ export function deleteFolderHandler() {
 
     const path = folderPath !== null ? folderPath : folder;
     const FolderName = folder;
+    const tree = document.getElementById("tree").firstElementChild.children;
 
     const reqParams = {
         path,
         FolderName,
     };
+
+    // определяем элемент в DOM
+
     if (path && FolderName) {
         const confirmDelete = confirm(
             `Вы действительно хотите удалить папку ${FolderName}`
         );
-        if (confirmDelete) {
-            if (viewResultsProcedure(deleteFolder, reqParams)) {
+        try {
+            if (confirmDelete && deleteFolder(reqParams)) {
+                const oldFolderDomElem = determDomNodePath(
+                    path,
+                    tree
+                ).parentNode;
+
                 const tabsList = document.getElementById("tabs").children;
+
                 for (let i = 0; i < openedFiles.length; i++) {
                     const file = openedFiles[i];
-                    console.log(24, openedFiles);
-                    console.log(25, tabsList);
-                    console.log(26, i);
                     if (file.folderPath === path) {
-                        console.log("true");
                         openedFiles.splice(i, 1);
                         openedTabs.splice(i, 1);
                         tabsList[i].remove();
                         i--;
                     }
                 }
-            }
-        }
 
-        sessionStorage.removeItem("path");
+                oldFolderDomElem.remove();
+            }
+
+            sessionStorage.removeItem("path");
+        } catch (error) {
+            console.log(error);
+            alert(error.message);
+        }
     } else {
         alert("Выберите папку!");
     }

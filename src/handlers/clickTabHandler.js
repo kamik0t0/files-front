@@ -3,10 +3,10 @@ import { openedFiles } from "../utils/openFilesArray.js";
 import { highlightFile } from "../view/highlight.js";
 import { setFileInfoToStorage } from "../scripts/setFileInfoToStorage.js";
 import { highlightTab } from "../view/highlight.js";
-import { createNodePath } from "../scripts/makeCatalogPath.js";
+import { determDomNodePath } from "../scripts/makeCatalogPath.js";
 
 export function clickTabHandler(event) {
-    if (event.target.className !== "tab") return;
+    if (!event.target.classList.contains("tab")) return;
     const currentTab = event.target;
     highlightTab(event.target);
     const tabsList = document.getElementById("tabs").children;
@@ -22,7 +22,7 @@ export function clickTabHandler(event) {
             const file = openedFiles[i];
             showFile(file.content);
             setFileInfoToStorage(file);
-            const node = createNodePath(
+            const node = determDomNodePath(
                 file.filePath,
                 document.getElementById("tree").firstElementChild.children
             );

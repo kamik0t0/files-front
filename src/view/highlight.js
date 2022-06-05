@@ -10,10 +10,21 @@ export function highlightTab(elem) {
     const tabs = document.getElementById("tabs");
     singleSelect(elem, tabs, "selected-tab");
     tabs.addEventListener("mousedown", () => false);
+    elem.style.paddingTop = "1px";
+    elem.style.fontSize = "1.2em";
 }
 
 function singleSelect(elem, tree, selector) {
     let selected = tree.querySelectorAll("." + selector);
+    if (elem.className === "tab") {
+        for (let elem of selected) {
+            elem.classList.remove(selector);
+            elem.style.paddingTop = "0px";
+            elem.style.fontSize = "1.0em";
+        }
+        elem.classList.add(selector);
+    }
+
     for (let elem of selected) {
         elem.classList.remove(selector);
     }

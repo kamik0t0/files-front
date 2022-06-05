@@ -1,3 +1,5 @@
+import { getFileName } from "../scripts/getDir.js";
+
 export async function downloadFile(filePath) {
     try {
         const response = await fetch(
@@ -7,7 +9,7 @@ export async function downloadFile(filePath) {
         let blob = await response.blob();
 
         let link = document.createElement("a");
-        link.download = filePath;
+        link.download = getFileName(filePath);
         link.href = URL.createObjectURL(blob);
         link.click();
         URL.revokeObjectURL(link.href);

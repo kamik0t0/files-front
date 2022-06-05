@@ -20,6 +20,7 @@ export async function clickFileHandler(event) {
         const file = sessionStorage.getItem("file");
         const folderPath = sessionStorage.getItem("folderPath");
         const folder = sessionStorage.getItem("folder");
+        const tabs = document.getElementById("tabs");
 
         for (let i = 0; i < openedFiles.length; i++) {
             let file = openedFiles[i];
@@ -36,8 +37,9 @@ export async function clickFileHandler(event) {
         );
 
         openedFiles.push(new File(filePath, file, folderPath, folder, content));
-        console.log(openedFiles);
         showFile(content);
-        createTab(file, filePath);
+        const tab = createTab(file, filePath);
+        tabs.append(tab);
+        highlightTab(tab);
     }
 }

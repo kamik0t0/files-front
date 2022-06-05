@@ -13,7 +13,6 @@ import { wrapLisInSpan } from "./scripts/wrapLisInSpan.js";
 import { renderCatalogTree } from "./view/renderCatalogTree.js";
 import { highlightFile } from "./view/highlight.js";
 import { resetSelection } from "./view/resetSelection.js";
-import { openedFiles } from "./utils/openFilesArray";
 
 const CreateFolderBtn = document.getElementById("create-folder");
 const DeleteFolderBtn = document.getElementById("delete-folder");
@@ -27,7 +26,6 @@ loadCatalogTree()
     .then((treeObj) => {
         renderCatalogTree(treeObj);
         wrapLisInSpan(tree);
-        console.log(openedFiles);
     })
     .catch((err) => console.log(err));
 

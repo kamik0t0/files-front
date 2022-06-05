@@ -7,6 +7,32 @@ body {
         sans-serif;
     margin-top: 10px;
     overflow: hidden;
+
+    ::-webkit-scrollbar {
+        position: absolute;
+        background-color: #828c99;
+        width: 2px;
+        height: 3px;
+    }
+
+    :hover:-webkit-scrollbar {
+        position: absolute;
+        background-color: #828c99;
+        width: 2px;
+        height: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        position: absolute;
+        background-color: #828c99;
+        border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        position: absolute;
+        background-color: #343c54;
+        border-radius: 2px;
+    }
     input:hover {
         cursor: pointer;
     }
@@ -59,23 +85,27 @@ body {
                     display: flex;
                     flex-direction: row;
                     align-items: flex-end;
-                    border-bottom: 3px solid #215691;
-                    height: 55px;
+                    height: 40spx;
                     margin-left: 4px;
                     margin-right: 4px;
                     flex: 1 1 auto;
-                    overflow: auto;
+                    overflow-x: scroll;
+                    overflow-y: hidden;
+
                     .tab {
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        margin-right: 1px;
                         height: 30px;
                         flex: 0 1 auto;
                         padding-left: 5px;
                         padding-right: 5px;
-                        border-top: 2px solid #708cac;
-                        border-left: 2px solid #708cac;
-                        border-right: 2px solid #708cac;
+                        border-top-right-radius: 5px;
+                        border-top-left-radius: 5px;
+                        border-right: 1px solid #708cac;
+                        border-left: 1px solid #708cac;
+                        border-top: 1px solid #708cac;
                         user-select: none;
                         .closeBtn {
                             cursor: pointer;
@@ -104,6 +134,7 @@ body {
 .selected-tab {
     border-bottom: none;
     background-color: #818c9a;
+    z-index: 10;
 }
 
 span {
